@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@plugin 'tailwind-scrollbar' {
+    nocompatible: true;
+    preferredStrategy: 'pseudoelements';
+}
+
+
+
 @theme {
     --animate-fade-Out: fadeOut .5s ease-out forwards 0s;
     --animate-fade-In: fadeIn .5s ease-in-out forwards 0s;

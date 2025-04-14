@@ -9,29 +9,33 @@ function App() {
   const [selectedMovies, setSelectedMovies] = useState<Record<string, Movie>>({});
 
   const addMovie = (movie: Movie) => {
-    setSelectedMovies((prev) => ({
-      ...prev,
-      [movie.imdbID]: movie,
-    }));
+    setSelectedMovies((prev) => ({ ...prev, [movie.imdbID]: movie }));
   };
 
   const removeMovie = (id: string) => {
     setSelectedMovies((prev) => {
-      const copy = { ...prev };
-      delete copy[id];
-      return copy;
+      const updated = { ...prev };
+      delete updated[id];
+      return updated;
     });
   };
 
   return (
-    <section className="grid grid-cols-2 max-h-screen overflow-hidden">
-      <div className="bg-indigo-200 p-4 flex flex-col items-center w-full ">
+    <main className="grid grid-cols-1 md:grid-cols-2 min-h-screen overflow-hidden">
+      <section className="overflow-hidden bg-indigo-200 p-4 w-full flex flex-col items-center ">
         <SearchBar onSearch={fetchMovies} loading={loading} />
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-red-500 mt-2">{error}</p>}
         <MovieList movies={movies} selected={selectedMovies} onSelect={addMovie} />
-      </div>
-      <SelectedMovies className={`animate-fade-In`} selected={selectedMovies} onRemove={removeMovie} />
-    </section>
+      </section>
+
+      <section className="bg-gray-600 overflow-hidden">
+        <SelectedMovies
+          selected={selectedMovies}
+          onRemove={removeMovie}
+          className="animate-fade-In"
+        />
+      </section>
+    </main>
   );
 }
 

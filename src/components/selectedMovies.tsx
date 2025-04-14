@@ -4,69 +4,90 @@ import { useEffect, useRef, useState } from "react";
 interface Props {
   selected: Record<string, Movie>;
   onRemove: (id: string) => void;
-  className: string;
+  className?: string;
 }
 
 export default function SelectedMovies({ selected, onRemove, className }: Props) {
   const [removingId, setRemovingId] = useState<string | null>(null);
   const movies = Object.values(selected);
+  const containerRef = useRef<HTMLDivElement>(null);
   const shownIds = useRef<Set<string>>(new Set());
-
-  useEffect(() => {
-    movies.forEach((movie) => shownIds.current.add(movie.imdbID));
-  }, [movies]);
 
   const handleRemove = (id: string) => {
     setRemovingId(id);
     setTimeout(() => {
       onRemove(id);
       setRemovingId(null);
-    }, 200); 
+      shownIds.current.delete(id);
+      containerRef.current?.scrollTo({ top: containerRef.current.scrollTop });
+    }, 300);
   };
 
-  
+  useEffect(() => {
+    movies.forEach((movie) => shownIds.current.add(movie.imdbID));
+  }, [movies]);
 
   return (
-    <div className="w-full h-[calc(100vh-180px)] overflow-y-auto py-2 space-y-3 mx-auto flex flex-col items-center min-h-screen bg-gray-600 text-amber-50 p-4">
-      <h1 className="text-2xl border-2 border-gray-300 p-4 w-full text-center font-mono font-semibold rounded-lg">
-        Selected Movies
-      </h1>
+    <section
+      aria-labelledby="selected-movies-heading"
+      className="max-h-screen flex flex-col h-full bg-gray-800 text-white rounded-lg shadow-xl overflow-hidden"
+    >
+      <header className="p-4 border-b border-gray-700">
+        <h1
+          id="selected-movies-heading"
+          className="text-xl font-semibold text-center md:text-2xl"
+        >
+          Selected Movies ({movies.length})
+        </h1>
+      </header>
+
+      <div
+        ref={containerRef}
+        className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800"
+      >
         {movies.length > 0 ? (
-         movies.map((movie) => {
-            const isNew = !shownIds.current.has(movie.imdbID);
-            return (
-              <div
-                key={movie.imdbID}
-                className={`w-full bg-white text-black flex p-4 mt-3 rounded shadow relative transition-all duration-300 ease-in-out ${
-                  removingId === movie.imdbID ? "animate-fade-Out" : ""
-                } ${isNew ? className : ""}`}
-              >
-                <span
-                  className="absolute right-1 top-1 cursor-pointer"
-                  onClick={() => handleRemove(movie.imdbID)}
+          <ul className="space-y-3">
+            {movies.map((movie) => {
+              const isNew = !shownIds.current.has(movie.imdbID);
+              return (
+                <li
+                  key={movie.imdbID}
+                  className={`relative flex items-start gap-4 p-3 bg-gray-700 rounded-lg transition-opacity duration-300 ${
+                    removingId === movie.imdbID ? "animate-fade-Out" : ""
+                  } ${isNew ? className : ""}`}
                 >
-                  ❎
-                </span>
-                <img
-                  src={
-                    movie.Poster !== "N/A"
-                      ? movie.Poster
-                      : "https://via.placeholder.com/100x150?text=No+Poster"
-                  }
-                  alt={movie.Title}
-                  className="w-16 h-16 object-cover rounded"
-                />
-                <div className="ml-4">
-                  <h2 className="font-bold">{movie.Title}</h2>
-                  <p>{movie.Year}</p>
-                </div>
-              </div>
-            );
-          })
+                  <button
+                    aria-label={`Remove ${movie.Title} from selection`}
+                    onClick={() => handleRemove(movie.imdbID)}
+                    className="text-2xl absolute top-0 right-2 text-red-400 hover:text-red-300 transition-colors"
+                  >
+                    ×
+                  </button>
+
+                  <img
+                    src={movie.Poster !== "N/A" ? movie.Poster : "/placeholder-movie.png"}
+                    alt={`Poster for ${movie.Title}`}
+                    width={80}
+                    height={120}
+                    className="flex-shrink-0 w-20 h-24 object-cover rounded-md"
+                    loading="lazy"
+                  />
+
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-base font-semibold truncate">{movie.Title}</h2>
+                    <p className="text-sm text-gray-400">{movie.Year}</p>
+                    <p className="text-xs text-gray-500 mt-1">IMDB ID: {movie.imdbID}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         ) : (
-          <p
-          className="my-auto">No movies selected</p>
+          <div className="h-full flex items-center justify-center text-gray-400">
+            <p>No movies selected yet</p>
+          </div>
         )}
-    </div>
+      </div>
+    </section>
   );
 }
