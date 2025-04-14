@@ -35,7 +35,7 @@ export default function MovieList({ movies, selected, onSelect }: Props) {
                 ? 'bg-emerald-600/30 ring-2 ring-emerald-400' 
                 : 'bg-gray-700 hover:bg-gray-600/50'
             }`}
-            disabled={isSelected}
+            disabled={!!isSelected}
           >
             <img
               src={movie.Poster !== "N/A" ? movie.Poster : "/placeholder-movie.png"}
