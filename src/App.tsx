@@ -4,6 +4,7 @@ import SearchBar from "./components/SearchBar.tsx";
 import MovieList from "./components/MovieList.tsx";
 import SelectedMovies from "./components/selectedMovies.tsx";
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 function App() {
   const { movies, loading, error, fetchMovies } = useMovieSearch();
@@ -37,6 +38,7 @@ function App() {
         />
       </section>
       <Analytics />
+      <SpeedInsights />
     </main>
   );
 }
