@@ -3,6 +3,7 @@ import { useMovieSearch, Movie } from "./hooks/useMovieSearch";
 import SearchBar from "./components/SearchBar.tsx";
 import MovieList from "./components/MovieList.tsx";
 import SelectedMovies from "./components/selectedMovies.tsx";
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   const { movies, loading, error, fetchMovies } = useMovieSearch();
@@ -35,6 +36,7 @@ function App() {
           className="animate-fade-In"
         />
       </section>
+      <Analytics />
     </main>
   );
 }
