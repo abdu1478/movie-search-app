@@ -33,7 +33,7 @@ A sleek, responsive movie search application built with **React**, **TypeScript*
    ```
 
 2. **Install dependencies**
-   ```bash
+   ```bash 
    npm install
    ```
 
