@@ -23,11 +23,11 @@ export const useMovieSearch = () => {
     setError("");
     try {
       const res = await axios(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`);
-      console.log("Response", res);
       if (res.data.Response === "False") throw new Error(res.data.Error);
       setMovies(res.data.Search || []);
     } catch (err: any) {
       setError(err.message || "Failed to fetch");
+      console.log(err)
       setMovies([]);
     } finally {
       setLoading(false);
