@@ -1,54 +1,91 @@
-# React + TypeScript + Vite
+# 🎬 Movie Search App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sleek, responsive movie search application built with **React**, **TypeScript**, and **Vite**. Users can search for movies using the [OMDb API](https://www.omdbapi.com/), view results, and add their favorites to a selected list.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🔍 **Search Movies** by title in real-time
+- 📂 **Select/Unselect** movies to/from a favorite list
+- 🎞️ **Poster display** with fallback for missing posters
+- 🧼 Clean and modular components
+- ✨ Smooth animations for selecting/removing items
+- 🌐 Powered by [OMDb API](https://www.omdbapi.com/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🛠️ Tech Stack
+
+- **React + TypeScript**
+- **Vite**
+- **Tailwind CSS** for UI styling
+- **Axios** for HTTP requests
+
+---
+
+## 📦 Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/abdu1478/movie-search-app.git
+   cd movie-search-app
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Add API key**
+
+   Create a `.env` file in the root directory:
+
+   ```bash
+   VITE_API_KEY=your_omdb_api_key
+   ```
+
+   Replace `your_omdb_api_key` with a valid key from [OMDb API](https://www.omdbapi.com/apikey.aspx).
+
+4. **Start the app**
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 🏗️ Build
+
+```bash
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📁 Project Structure
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+src/
+├── assets/            # Static files and images
+├── components/        # UI components (e.g., SelectedMovies)
+├── hooks/             # Custom hooks (e.g., useMovieSearch)
+├── App.tsx            # Main app entry
+├── main.tsx           # React root
+└── App.css          # Global styles (Tailwind)
+```
+
+---
+
+---
+
+## 📃 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
+
+## 🙌 Acknowledgements
+
+- [OMDb API](https://www.omdbapi.com/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)

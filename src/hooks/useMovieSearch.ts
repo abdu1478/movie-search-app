@@ -16,7 +16,6 @@ export const useMovieSearch = () => {
 
   const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 
-  console.log("Api key", API_KEY);
 
   const fetchMovies = useCallback(async (query: string) => {
     if (!query.trim()) return;

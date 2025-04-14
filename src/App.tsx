@@ -30,7 +30,7 @@ function App() {
         {error && <p className="text-red-500">{error}</p>}
         <MovieList movies={movies} selected={selectedMovies} onSelect={addMovie} />
       </div>
-      <SelectedMovies selected={selectedMovies} onRemove={removeMovie} />
+      <SelectedMovies className={`animate-fade-In`} selected={selectedMovies} onRemove={removeMovie} />
     </section>
   );
 }
